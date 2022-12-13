@@ -1,6 +1,7 @@
 package com.addressbookjdbc;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -111,5 +112,37 @@ public class AddressBookDBService {
     public List<Contacts> getRecordsByCityOrState(String city, String state) {
         String query = String.format("SELECT * FROM address_book WHERE city='%s' OR state='%s';", city, state);
         return this.getAddressBookData(query);
+    }
+
+    public Contacts addContactToRecord(String firstName, String lastName, String address, String city, String state, String zip,
+                                       String phoneNumber, String email) throws AddressBookException {
+        int contactId = -1;
+        Connection connection = null;
+        Contacts addressBookData = null;
+        try {
+            connection = this.getConnection();
+            connection.setAutoCommit(false);
+        }catch(SQLException exception) {
+            exception.printStackTrace();
+        }
+        try(Statement statement = connection.createStatement()){
+            String query = String.format("INSERT INTO address_book VALUES ('%s','%s','%s','%s','%s','%s','%s','%s')",
+                    firstName, lastName, address, city, state, zip,
+                    phoneNumber, email);
+            int rowAffected = statement.executeUpdate(query, Statement.RETURN_GENERATED_KEYS);
+            if(rowAffected==1) {
+                ResultSet resultSet = statement.getGeneratedKeys();
+                if(resultSet.next()) contactId =  resultSet.getInt(1);
+            }
+        } catch (SQLException exception) {
+            try {
+                connection.rollback();
+                return addressBookData;
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+            throw new AddressBookException(AddressBookException.ExceptionType.INSERTION_FAIL, "Insertion to DB failed");
+        }
+        return addressBookData;
     }
 }

@@ -3,7 +3,7 @@ package com.addressbookjdbc;
 public class AddressBookException extends Exception {
 
     public enum ExceptionType
-    {UPDATE_FAIL}
+    {UPDATE_FAIL,INSERTION_FAIL}
 
     public ExceptionType type;
 
