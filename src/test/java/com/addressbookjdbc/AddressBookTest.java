@@ -33,4 +33,10 @@ public class AddressBookTest {
         List<Contacts> recordDataInGivenDateRange = addressBookFunction.getRecordAddedInDateRange("2018-01-01","2019-11-30");
         assertEquals(0, recordDataInGivenDateRange.size());
     }
+
+    @Test
+    public void givenCityOrState_WhenRetrieved_ShouldReturnProperData() throws AddressBookException {
+        List<Contacts> recordDataByCityState = addressBookFunction.getRecordsByCityOrState("Jalgaon", "Maharashtra");
+        assertEquals(1, recordDataByCityState.size());
+    }
 }

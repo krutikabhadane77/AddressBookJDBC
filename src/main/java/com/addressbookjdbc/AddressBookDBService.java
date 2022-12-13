@@ -107,4 +107,9 @@ public class AddressBookDBService {
         String query = String.format("SELECT * FROM address_book WHERE dateAdded BETWEEN '%s' AND '%s';", date1, date2);
         return this.getAddressBookData(query);
     }
+
+    public List<Contacts> getRecordsByCityOrState(String city, String state) {
+        String query = String.format("SELECT * FROM address_book WHERE city='%s' OR state='%s';", city, state);
+        return this.getAddressBookData(query);
+    }
 }
