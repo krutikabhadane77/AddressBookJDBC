@@ -102,4 +102,9 @@ public class AddressBookDBService {
         }
         return 0;
     }
+
+    public List<Contacts> getRecordsAddedInGivenDateRange(String date1, String date2) {
+        String query = String.format("SELECT * FROM address_book WHERE dateAdded BETWEEN '%s' AND '%s';", date1, date2);
+        return this.getAddressBookData(query);
+    }
 }

@@ -1,5 +1,7 @@
 package com.addressbookjdbc;
 
+import java.time.LocalDate;
+
 public class Contacts {
     public String firstName;
     public String lastName;
@@ -9,6 +11,7 @@ public class Contacts {
     public String zip;
     public String phoneNumber;
     public String email;
+    public LocalDate dateAdded;
 
     public Contacts(String firstName, String lastName, String address, String city, String state, String zip, String phoneNumber, String email) {
         this.firstName = firstName;
@@ -19,6 +22,13 @@ public class Contacts {
         this.zip = zip;
         this.phoneNumber = phoneNumber;
         this.email = email;
+    }
+
+    public Contacts(String firstName, String lastName, String address, String city, String state, String zip,
+                    String phoneNumber, String email, LocalDate dateAdded) {
+        this(firstName, lastName, address, city,
+                state, zip, phoneNumber, email);
+        this.dateAdded = dateAdded;
     }
 
     @Override

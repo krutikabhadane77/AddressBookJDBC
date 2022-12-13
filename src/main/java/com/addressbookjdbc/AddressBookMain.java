@@ -44,4 +44,9 @@ public class AddressBookMain {
         List<Contacts> checkList = addressBookDBService.getRecordDataByName(firstName);
         return checkList.get(0).equals(getRecordDataByName(firstName));
     }
+
+    public List<Contacts> getRecordAddedInDateRange(String date1, String date2) {
+        List<Contacts> record = addressBookDBService.getRecordsAddedInGivenDateRange(date1, date2);
+        return record;
+    }
 }

@@ -27,4 +27,10 @@ public class AddressBookTest {
         boolean result=addressBookFunction.checkAddressBookInSyncWithDB("Krutika");
         Assert.assertTrue(result);
     }
+
+    @Test
+    public void givenDateRangeForRecord_WhenRetrieved_ShouldReturnProperData() throws AddressBookException {
+        List<Contacts> recordDataInGivenDateRange = addressBookFunction.getRecordAddedInDateRange("2018-01-01","2019-11-30");
+        assertEquals(0, recordDataInGivenDateRange.size());
+    }
 }
